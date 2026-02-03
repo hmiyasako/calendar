@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import type { CalendarEvent, EventFormData } from '../types';
 import { useEvents } from '../hooks/useEvents';
 import { EventModal } from './EventModal';
+import { DayEventsModal } from './DayEventsModal';
 import './Calendar.css';
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -26,6 +27,7 @@ export function Calendar() {
   });
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [dayModalOpen, setDayModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>('');
 
@@ -138,6 +140,25 @@ export function Calendar() {
     setSelectedDate('');
   };
 
+  const handleMoreClick = (dateString: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedDate(dateString);
+    setDayModalOpen(true);
+  };
+
+  const handleDayEventClick = (event: CalendarEvent) => {
+    setDayModalOpen(false);
+    setSelectedEvent(event);
+    setSelectedDate(event.date);
+    setModalOpen(true);
+  };
+
+  const handleAddNewFromDayModal = () => {
+    setDayModalOpen(false);
+    setSelectedEvent(null);
+    setModalOpen(true);
+  };
+
   return (
     <div className="calendar">
       <div className="calendar-header">
@@ -191,7 +212,10 @@ export function Calendar() {
                   </div>
                 ))}
                 {dayEvents.length > 3 && (
-                  <div className="more-events">
+                  <div
+                    className="more-events"
+                    onClick={(e) => handleMoreClick(day.dateString, e)}
+                  >
                     +{dayEvents.length - 3} more
                   </div>
                 )}
@@ -210,6 +234,15 @@ export function Calendar() {
         onClose={handleCloseModal}
         onSave={handleSave}
         onDelete={handleDelete}
+      />
+
+      <DayEventsModal
+        isOpen={dayModalOpen}
+        date={selectedDate}
+        events={getEventsForDate(selectedDate)}
+        onClose={() => setDayModalOpen(false)}
+        onEventClick={handleDayEventClick}
+        onAddNew={handleAddNewFromDayModal}
       />
     </div>
   );
