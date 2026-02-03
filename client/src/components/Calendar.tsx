@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { CalendarEvent, EventFormData } from '../types';
+import type { CalendarEvent, EventFormData } from '../types';
 import { useEvents } from '../hooks/useEvents';
 import { EventModal } from './EventModal';
 import './Calendar.css';
@@ -29,7 +29,7 @@ export function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>('');
 
-  const { events, loading, error, createEvent, updateEvent, deleteEvent, getEventsForDate } =
+  const { loading, error, createEvent, updateEvent, deleteEvent, getEventsForDate } =
     useEvents(currentDate.year, currentDate.month);
 
   const calendarDays = useMemo(() => {

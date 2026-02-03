@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { CalendarEvent, EventFormData } from '../types';
+import type { CalendarEvent, EventFormData } from '../types';
 import { eventsApi } from '../api';
 
 export function useEvents(year: number, month: number) {

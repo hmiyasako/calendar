@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CalendarEvent, EventFormData } from '../types';
+import type { CalendarEvent, EventFormData } from '../types';
 import './EventModal.css';
 
 interface EventModalProps {

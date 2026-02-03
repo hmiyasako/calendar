@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ThemeName, Theme } from '../types';
+import type { ThemeName, Theme } from '../types';
 
 const THEME_STORAGE_KEY = 'calendar-theme';
 

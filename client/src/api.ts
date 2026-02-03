@@ -1,4 +1,4 @@
-import { CalendarEvent, EventFormData, ApiResponse } from './types';
+import type { CalendarEvent, EventFormData, ApiResponse } from './types';
 
 const API_BASE_URL = '/api';
 

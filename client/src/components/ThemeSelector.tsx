@@ -1,4 +1,4 @@
-import { ThemeName, Theme } from '../types';
+import type { ThemeName, Theme } from '../types';
 import './ThemeSelector.css';
 
 interface ThemeSelectorProps {
